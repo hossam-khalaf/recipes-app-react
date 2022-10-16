@@ -18,7 +18,7 @@ const Popular = () => {
 			setPopular(JSON.parse(check))
 		} else {
 			const api = await fetch(
-				`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API_KEY}&number=20`
+				`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API_KEY}&number=9&tags=vegeterian`
 			)
 			const data = await api.json()
 			localStorage.setItem('popular', JSON.stringify(data.recipes))
@@ -60,7 +60,7 @@ const Popular = () => {
 export default Popular
 
 const Container = styled.div`
-	margin: 4rem 0;
+	margin: 4rem 2rem;
 `
 const Card = styled.div`
 	min-height: 25rem;
