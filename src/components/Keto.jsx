@@ -2,63 +2,65 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/react-splide/css'
-const Veggie = () => {
-	const [veggie, setVeggie] = useState([])
+const Keto = () => {
+	const [keto, setKeto] = useState([])
 
 	useEffect(() => {
-		getVeggie()
+		getKeto()
 	}, [])
 
 	// getting data from the API
-	const getVeggie = async () => {
-		const check = localStorage.getItem('veggie')
+	const getKeto = async () => {
+		const check = localStorage.getItem('Keto')
 
 		if (check) {
-			setVeggie(JSON.parse(check))
+			setKeto(JSON.parse(check))
 		} else {
 			const api = await fetch(
-				`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API_KEY}&number=20`
+				`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API_KEY}&number=9&tags=ketogenic`
 			)
+
 			const data = await api.json()
-			localStorage.setItem('veggie', JSON.stringify(data.recipes))
-			setVeggie(data.recipes)
+			localStorage.setItem('keto', JSON.stringify(data.recipes))
+			setKeto(data.recipes)
+			console.log(data.recipes)
 		}
 	}
 	return (
 		<Container>
-			<h3>Vegeterian Picks</h3>
+			<h3>Keto Diet Picks</h3>
 			<Splide
 				tag='section'
-				options={{
-					perPage: 3,
+				options={ {
+					perPage: 2,
 					arrows: false,
 					pagination: false,
 					drag: 'free',
 					rewind: true,
 					width: '100%',
-					gap: '5rem',
-				}}
+					gap: '3rem',
+				} }
 			>
-				{veggie.map((recipe) => {
+				{ keto.map((recipe) => {
 					return (
-						<SplideSlide key={recipe.id}>
-							<Card key={recipe.id}>
-								<p>{recipe.title}</p>
-								<img src={recipe.image} alt={recipe.title} />
+						<SplideSlide key={ recipe.id }>
+							<Card key={ recipe.id }>
+								<p>{ recipe.title }</p>
+								<img src={ recipe.image } alt={ recipe.title } />
 								<Gradient />
 							</Card>
 						</SplideSlide>
 					)
-				})}
+				}) }
 			</Splide>
 		</Container>
 	)
 }
 
-export default Veggie
+export default Keto
 
 const Container = styled.div`
-	margin: 4rem 2rem;
+	margin: 4rem 0rem;
 `
 const Card = styled.div`
 	min-height: 25rem;

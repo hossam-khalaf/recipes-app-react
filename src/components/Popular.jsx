@@ -18,7 +18,7 @@ const Popular = () => {
 			setPopular(JSON.parse(check))
 		} else {
 			const api = await fetch(
-				`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API_KEY}&number=9&tags=vegeterian`
+				`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_RECIPES_API_KEY}&number=9`
 			)
 			const data = await api.json()
 			localStorage.setItem('popular', JSON.stringify(data.recipes))
@@ -31,27 +31,27 @@ const Popular = () => {
 			<h3>Popular Picks</h3>
 			<Splide
 				tag='section'
-				options={{
-					perPage: 4,
+				options={ {
+					perPage: 3,
 					arrows: false,
 					pagination: false,
 					drag: 'free',
 					rewind: true,
 					width: '100%',
-					gap: '5rem',
-				}}
+					gap: '3rem',
+				} }
 			>
-				{popular.map((recipe) => {
+				{ popular.map((recipe) => {
 					return (
-						<SplideSlide key={recipe.id}>
-							<Card key={recipe.id}>
-								<p>{recipe.title}</p>
-								<img src={recipe.image} alt={recipe.title} />
+						<SplideSlide key={ recipe.id }>
+							<Card key={ recipe.id }>
+								<p>{ recipe.title }</p>
+								<img src={ recipe.image } alt={ recipe.title } />
 								<Gradient />
 							</Card>
 						</SplideSlide>
 					)
-				})}
+				}) }
 			</Splide>
 		</Container>
 	)
@@ -60,7 +60,7 @@ const Popular = () => {
 export default Popular
 
 const Container = styled.div`
-	margin: 4rem 2rem;
+	margin: 4rem 0rem;
 `
 const Card = styled.div`
 	min-height: 25rem;
